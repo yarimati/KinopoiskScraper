@@ -1,6 +1,6 @@
 ﻿namespace KinopoiskScraper.Message
 {
-    public class ExcelNotInstalledMessage : Message
+    public class ExcelNotInstalledMessage : Interfaces.Message
     {
         public override void ShowMessage(params string[] data)
         {

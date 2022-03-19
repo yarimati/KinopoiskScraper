@@ -1,12 +1,12 @@
-﻿namespace KinopoiskScraper.Message
+﻿namespace KinopoiskScraper.Messages
 {
-    public class FilesNotFoundMessage : Interfaces.Message
+    public class WrongLinkMessage : Interfaces.Message
     {
         public override void ShowMessage(params string[] data)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine();
-            Console.WriteLine(@"No ""html"" files found, try again.");
+            Console.WriteLine($"User not found or wrong link");
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.ReadKey();
         }

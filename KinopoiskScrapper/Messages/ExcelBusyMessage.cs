@@ -1,6 +1,6 @@
 ﻿namespace KinopoiskScraper.Message
 {
-    public class ExcelBusyMessage : Message
+    public class ExcelBusyMessage : Interfaces.Message
     {
         public override void ShowMessage(params string[] data)
         {

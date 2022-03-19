@@ -1,6 +1,6 @@
 ﻿namespace KinopoiskScraper.Message
 {
-    public class SuccessfulMessage : Message
+    public class SuccessfulMessage : Interfaces.Message
     {
         public override void ShowMessage(params string[] data)
         {

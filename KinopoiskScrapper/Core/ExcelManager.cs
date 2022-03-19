@@ -1,13 +1,13 @@
-﻿namespace KinopoiskScraper.Utilities
+﻿namespace KinopoiskScraper.Core
 {
     public class ExcelManager
     {
-        public static void SaveOnDisk(List<Film> films, string path)
+        public static void SaveOnDisk(List<Film> films)
         {
             if (films is null)
                 return;
 
-            string resultPath = path + @"\Films.xls";
+            string resultPath = Directory.GetCurrentDirectory() + @"\Films.xls";
 
             Excel.Application xlApp = new Excel.Application();
 

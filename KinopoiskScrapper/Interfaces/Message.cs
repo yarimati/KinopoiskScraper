@@ -1,4 +1,4 @@
-﻿namespace KinopoiskScraper.Message
+﻿namespace KinopoiskScraper.Interfaces
 {
     public abstract class Message
     {

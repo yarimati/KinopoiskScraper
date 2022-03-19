@@ -1,6 +1,27 @@
 ﻿MessageHandler.Handle(new GreetingMessage());
 
-string? directoryPath = Console.ReadLine();
+var extractorType = Console.ReadLine();
+Console.WriteLine();
 
-var films = FilmExtractor.ExtractFilms(directoryPath);
-ExcelManager.SaveOnDisk(films, directoryPath);
+if (extractorType is "1")
+{
+    MessageHandler.Handle(new ApiRequestInstractionMessage());
+    ExtractData(new ApiRequestExtractor());
+}
+else if (extractorType is "2")
+{
+    MessageHandler.Handle(new HtmlFileInstructionMessage());
+    ExtractData(new HtmlFileExtractor());
+}
+else
+{
+    MessageHandler.Handle(new HtmlFileInstructionMessage());
+    return;
+}
+
+static void ExtractData(IExtractor extractor)
+{
+    string? userMsg = Console.ReadLine();
+    var films = extractor.ExtractFilms(userMsg);
+    ExcelManager.SaveOnDisk(films);
+}

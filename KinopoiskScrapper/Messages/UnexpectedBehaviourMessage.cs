@@ -1,12 +1,13 @@
-﻿namespace KinopoiskScraper.Message
+﻿namespace KinopoiskScraper.Messages
 {
-    public class FilesNotFoundMessage : Interfaces.Message
+    public class UnexpectedBehaviourMessage : Interfaces.Message
     {
         public override void ShowMessage(params string[] data)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine();
-            Console.WriteLine(@"No ""html"" files found, try again.");
+            Console.WriteLine($"Something went wrong");
+            Console.WriteLine($"Exception message: {data[0]}");
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.ReadKey();
         }

@@ -1,6 +1,6 @@
 ﻿namespace KinopoiskScraper.Message
 {
-    public class WrongPathMessage : Message
+    public class WrongPathMessage : Interfaces.Message
     {
         public override void ShowMessage(params string[] data)
         {

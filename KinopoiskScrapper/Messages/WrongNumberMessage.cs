@@ -1,12 +1,12 @@
-﻿namespace KinopoiskScraper.Message
+﻿namespace KinopoiskScraper.Messages
 {
-    public class FilesNotFoundMessage : Interfaces.Message
+    public class WrongNumberMessage : Interfaces.Message
     {
         public override void ShowMessage(params string[] data)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine();
-            Console.WriteLine(@"No ""html"" files found, try again.");
+            Console.WriteLine($"You entered wrong number");
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.ReadKey();
         }

@@ -1,16 +1,16 @@
 ﻿namespace KinopoiskScraper.Utilities
 {
-    public class FilmExtractor
+    public class HtmlFileExtractor : IExtractor
     {
-        public static List<Film>? ExtractFilms(string path)
+        public List<Film>? ExtractFilms(params string[] data)
         {
-            if (path is null || !Directory.Exists(path))
+            if (data is null || !Directory.Exists(data[0]))
             {
                 MessageHandler.Handle(new WrongPathMessage());
                 return null;
             }
 
-            string[] files = Directory.GetFiles(path, "*.html");
+            string[] files = Directory.GetFiles(data[0], "*.html");
 
             if (files.Length < 1)
             {
@@ -39,7 +39,6 @@
 
             return films.OrderByDescending(f => f.Rating).ToList();
         }
-
         public static List<Film> GetFilms(HtmlNodeCollection collection)
         {
             var films = new List<Film>();
@@ -49,17 +48,17 @@
                 if (film is not null)
                     films.Add(film);
             }
+
             return films;
         }
-
         private static Film? GetFilm(string outerHtml)
         {
             HtmlDocument document = new();
             document.LoadHtml(outerHtml);
             int rating = 0;
 
-            var nameRusHtmlNode = document.DocumentNode.SelectSingleNode(Xpath.NameRus);
-            var nameEngHtmlNode = document.DocumentNode.SelectSingleNode(Xpath.NameEng);
+            var nameRusHtmlNode = document.DocumentNode.SelectSingleNode(Xpath.NameRusHtmlNode);
+            var nameEngHtmlNode = document.DocumentNode.SelectSingleNode(Xpath.NameEngHtmlNode);
             var myRatingHtmlNode = document.DocumentNode.SelectSingleNode(Xpath.MyRatingHtmlNode);
             var othersRatingHtmlNode = document.DocumentNode.SelectSingleNode(Xpath.OthersRatingHtmlNode);
 
