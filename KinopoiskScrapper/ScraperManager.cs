@@ -20,44 +20,29 @@
             var extractorKey = Console.ReadLine();
             Console.WriteLine();
 
-            bool isEnteredKeyCalled = false;
-
-            foreach (var extractor in _extractors)
+            if (_extractors.TryGetValue(extractorKey, out var type))
             {
-                if (extractor.Key == extractorKey)
-                {
-                    isEnteredKeyCalled = true;
-                    var instance = (IExtractor)Activator.CreateInstance(extractor.Value);
-                    var films = instance.ExtractFilms();
+                var instance = (IExtractor)Activator.CreateInstance(type);
+                var films = instance.ExtractFilms();
 
-                    Save(films);
-
-                    break;
-                }
+                Save(films);
             }
-
-            if (!isEnteredKeyCalled)
-            {
+            else 
                 MessageHandler.Handle(new WrongNumberMessage());
-                return;
-            }
         }
 
         private void Save(List<Film> films)
         {
             MessageHandler.Handle(new FileSaverInstructionMessage());
-            var fileSaverkey = Console.ReadLine();
+            var fileSaverKey = Console.ReadLine();
 
-            foreach (var fileSaver in _fileSavers)
+            if (_fileSavers.TryGetValue(fileSaverKey, out var type))
             {
-                if (fileSaver.Key == fileSaverkey)
-                {
-                    using (var saver = (IFileSaver)Activator.CreateInstance(fileSaver.Value, films))
-                        saver.SaveOnDisk();
-
-                    break;
-                }
+                using (var saver = (IFileSaver)Activator.CreateInstance(type, films))
+                    saver.SaveOnDisk();
             }
+            else
+                MessageHandler.Handle(new WrongNumberMessage());
         }
     }
 }
