@@ -23,5 +23,5 @@ static void ExtractData(IExtractor extractor)
 {
     string? userMsg = Console.ReadLine();
     var films = extractor.ExtractFilms(userMsg);
-    ExcelManager.SaveOnDisk(films);
+    using (ExcelFileSaver fs = new()) fs.SaveOnDisk(films);
 }
