@@ -2,7 +2,7 @@
 {
     public class FileSaverInstructionMessage : Interfaces.Message
     {
-        public override void ShowMessage(params string[] data)
+        public override void ShowMessage()
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine();

@@ -7,9 +7,13 @@ namespace KinopoiskScraper.Core
 {
     internal class ApiRequestExtractor : IExtractor
     {
-        public List<Film>? ExtractFilms(params string[] data)
+        public List<Film>? ExtractFilms()
         {
-            var dtos = GetFilmsDto(data[0]);
+            MessageHandler.Handle(new ApiRequestInstractionMessage());
+
+            string link = Console.ReadLine();
+
+            var dtos = GetFilmsDto(link);
 
             if (dtos is null)
                 return null;
@@ -50,7 +54,7 @@ namespace KinopoiskScraper.Core
                 }
                 catch (Exception ex)
                 {
-                    MessageHandler.Handle(new UnexpectedBehaviourMessage(), ex.Message);
+                    MessageHandler.Handle(new UnexpectedBehaviourMessage(ex.Message));
                     return null;
                 }
             }

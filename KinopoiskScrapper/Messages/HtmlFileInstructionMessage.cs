@@ -2,7 +2,7 @@
 {
     internal class HtmlFileInstructionMessage : Interfaces.Message
     {
-        public override void ShowMessage(params string[] data)
+        public override void ShowMessage()
         {
             Console.WriteLine("How to export film ratings?");
             Console.WriteLine("1. Create folder for pages on Desktop.");

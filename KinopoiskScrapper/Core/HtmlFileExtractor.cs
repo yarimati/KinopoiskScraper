@@ -2,15 +2,19 @@
 {
     public class HtmlFileExtractor : IExtractor
     {
-        public List<Film>? ExtractFilms(params string[] data)
+        public List<Film>? ExtractFilms()
         {
-            if (data is null || !Directory.Exists(data[0]))
+            MessageHandler.Handle(new HtmlFileInstructionMessage());
+
+            string path = Console.ReadLine();
+
+            if (path is null || !Directory.Exists(path))
             {
                 MessageHandler.Handle(new WrongPathMessage());
                 return null;
             }
 
-            string[] files = Directory.GetFiles(data[0], "*.html");
+            string[] files = Directory.GetFiles(path, "*.html");
 
             if (files.Length < 1)
             {
@@ -39,6 +43,7 @@
 
             return films.OrderByDescending(f => f.Rating).ToList();
         }
+
         public static List<Film> GetFilms(HtmlNodeCollection collection)
         {
             var films = new List<Film>();
@@ -51,6 +56,7 @@
 
             return films;
         }
+
         private static Film? GetFilm(string outerHtml)
         {
             HtmlDocument document = new();

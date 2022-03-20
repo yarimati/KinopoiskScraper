@@ -3,10 +3,12 @@
     internal class TxtFileSaver : IFileSaver
     {
         private List<Film> _films;
+
         public TxtFileSaver(List<Film> films)
         {
             _films = films;
         }
+
         public void SaveOnDisk()
         {
             if (_films == null)
@@ -21,7 +23,12 @@
                     sw.WriteLine($"{film.NameRus}\t\t{film.NameEng}\t\t{{{film.Rating}}}");
                 }
             }
-            MessageHandler.Handle(new SuccessfulMessage(), FilePath.TxtDestinationPath);
+            MessageHandler.Handle(new SuccessfulMessage(FilePath.TxtDestinationPath));
+        }
+
+        public void Dispose()
+        {
+            _films = null;
         }
     }
 }

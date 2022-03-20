@@ -42,9 +42,9 @@
             }
             catch (Exception ex)
             {
-                MessageHandler.Handle(new ExcelBusyMessage(), ex.Message);
+                MessageHandler.Handle(new ExcelBusyMessage(ex.Message));
             }
-            MessageHandler.Handle(new SuccessfulMessage(), FilePath.ExcelDestinationPath);
+            MessageHandler.Handle(new SuccessfulMessage(FilePath.ExcelDestinationPath));
         }
 
         private bool TryToCreateExcelApplication(out Excel.Application xlApp)
@@ -64,11 +64,12 @@
             }
             catch (Exception ex)
             {
-                MessageHandler.Handle(new UninstalledExcelMessage(), ex.Message);
+                MessageHandler.Handle(new UninstalledExcelMessage(ex.Message));
                 xlApp = null;
                 return false;
             }
         }
+
         public void Dispose()
         {
             try
@@ -77,10 +78,16 @@
                 _xlApp.Quit();
 
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(_xlApp);
+
+                _misValue = null;
+                _xlWorkBook = null;
+                _xlWorkSheet = null;
+                _xlApp = null;
+                _films = null;
             }
             catch (Exception ex)
             {
-                MessageHandler.Handle(new UnexpectedBehaviourMessage(), ex.Message);
+                MessageHandler.Handle(new UnexpectedBehaviourMessage(ex.Message));
             }
         }
     }

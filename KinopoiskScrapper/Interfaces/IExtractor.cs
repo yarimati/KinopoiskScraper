@@ -2,6 +2,6 @@
 {
     public interface IExtractor
     {
-        List<Film>? ExtractFilms(params string[] data);
+        List<Film>? ExtractFilms();
     }
 }

@@ -2,6 +2,6 @@
 {
     public static class MessageHandler
     {
-        public static void Handle(Interfaces.Message message, params string[] data) => message.ShowMessage(data);
+        public static void Handle(Interfaces.Message message) => message.ShowMessage();
     }
 }

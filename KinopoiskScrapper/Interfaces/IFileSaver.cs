@@ -1,6 +1,6 @@
 ﻿namespace KinopoiskScraper.Interfaces
 {
-    public interface IFileSaver
+    public interface IFileSaver : IDisposable
     {
         public void SaveOnDisk();
     }

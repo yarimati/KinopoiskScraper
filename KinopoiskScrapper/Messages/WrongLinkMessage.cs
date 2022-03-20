@@ -2,7 +2,7 @@
 {
     public class WrongLinkMessage : Interfaces.Message
     {
-        public override void ShowMessage(params string[] data)
+        public override void ShowMessage()
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine();
