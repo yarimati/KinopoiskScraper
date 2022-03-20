@@ -23,5 +23,17 @@ static void ExtractData(IExtractor extractor)
 {
     string? userMsg = Console.ReadLine();
     var films = extractor.ExtractFilms(userMsg);
-    using (ExcelFileSaver fs = new()) fs.SaveOnDisk(films);
+
+    MessageHandler.Handle(new FileSaverInstructionMessage());
+    var fileSaverType = Console.ReadLine();
+
+    if (fileSaverType is "1")
+        SaveData(new ExcelFileSaver(films));
+    else if (fileSaverType is "2")
+        SaveData(new TxtFileSaver(films));
+}
+
+static void SaveData(IFileSaver fileSaver)
+{
+    fileSaver.SaveOnDisk();
 }

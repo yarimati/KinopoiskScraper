@@ -6,10 +6,16 @@
         private Excel.Workbook _xlWorkBook;
         private Excel.Worksheet _xlWorkSheet;
         private Excel.Application _xlApp;
+        private List<Film> _films;
 
-        public void SaveOnDisk(List<Film> films)
+        public ExcelFileSaver(List<Film> films)
         {
-            if (films is null)
+            _films = films;
+        }
+
+        public void SaveOnDisk()
+        {
+            if (_films is null)
                 return;
 
             if (!TryToCreateExcelApplication(out _xlApp))
@@ -21,7 +27,7 @@
 
             int i = 2;
 
-            foreach (var film in films)
+            foreach (var film in _films)
             {
                 _xlWorkSheet.Cells[i, 1].Value = film.NameRus;
                 _xlWorkSheet.Cells[i, 2].Value = film.NameEng;
@@ -30,17 +36,15 @@
                 i++;
             }
 
-            string resultPath = Directory.GetCurrentDirectory() + @"\Films.xls";
-
             try
             {
-                _xlWorkBook.SaveAs(resultPath, Excel.XlFileFormat.xlWorkbookNormal, _misValue, _misValue, _misValue, _misValue, Excel.XlSaveAsAccessMode.xlExclusive, _misValue, _misValue, _misValue, _misValue, _misValue);
+                _xlWorkBook.SaveAs(FilePath.ExcelDestinationPath, Excel.XlFileFormat.xlWorkbookNormal, _misValue, _misValue, _misValue, _misValue, Excel.XlSaveAsAccessMode.xlExclusive, _misValue, _misValue, _misValue, _misValue, _misValue);
             }
             catch (Exception ex)
             {
                 MessageHandler.Handle(new ExcelBusyMessage(), ex.Message);
             }
-            MessageHandler.Handle(new SuccessfulMessage(), resultPath);
+            MessageHandler.Handle(new SuccessfulMessage(), FilePath.ExcelDestinationPath);
         }
 
         private bool TryToCreateExcelApplication(out Excel.Application xlApp)

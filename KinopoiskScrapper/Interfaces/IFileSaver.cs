@@ -2,6 +2,6 @@
 {
     public interface IFileSaver
     {
-        public void SaveOnDisk(List<Film> films);
+        public void SaveOnDisk();
     }
 }
