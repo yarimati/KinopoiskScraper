@@ -30,17 +30,17 @@
                 i++;
             }
 
-            string _resultPath = Directory.GetCurrentDirectory() + @"\Films.xls";
+            string resultPath = Directory.GetCurrentDirectory() + @"\Films.xls";
 
             try
             {
-                _xlWorkBook.SaveAs(_resultPath, Excel.XlFileFormat.xlWorkbookNormal, _misValue, _misValue, _misValue, _misValue, Excel.XlSaveAsAccessMode.xlExclusive, _misValue, _misValue, _misValue, _misValue, _misValue);
+                _xlWorkBook.SaveAs(resultPath, Excel.XlFileFormat.xlWorkbookNormal, _misValue, _misValue, _misValue, _misValue, Excel.XlSaveAsAccessMode.xlExclusive, _misValue, _misValue, _misValue, _misValue, _misValue);
             }
             catch (Exception ex)
             {
                 MessageHandler.Handle(new ExcelBusyMessage(), ex.Message);
             }
-            MessageHandler.Handle(new SuccessfulMessage(), _resultPath);
+            MessageHandler.Handle(new SuccessfulMessage(), resultPath);
         }
 
         private bool TryToCreateExcelApplication(out Excel.Application xlApp)
